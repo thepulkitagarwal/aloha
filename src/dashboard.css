@@ -1,0 +1,141 @@
+html, body {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	font-size: 16px;
+	display: flex;
+	align-items: stretch;
+}
+
+#bg-container {
+	margin: 0;
+	padding: 0;
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background: url(../res/wallpaper.jpg);
+	background-size: cover;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+}
+
+#clock {
+	text-align: center;
+	font-size: 950%;
+	line-height: 1;
+	letter-spacing: 0;
+	white-space: nowrap;
+	color: #fff;
+	text-shadow: 1px 1px 50px rgba(0, 0, 0, 0.5);
+
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	-webkit-animation: fadein .5s ease 0s forwards;
+}
+
+#message {
+	font-size: 330%;
+	letter-spacing: 0;
+	white-space: nowrap;
+	color: #fff;
+	text-shadow: 1px 1px 20px rgba(0, 0, 0, 0.8);
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	-webkit-animation: fadein .5s ease 0s forwards;
+}
+
+#bottom-div {
+	right: 0;
+	bottom: 0;
+	width: 100%;
+	position: fixed;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: space-between;
+}
+
+#bottom-left-div {
+	flex: 2;
+	display: flex;
+	align-items: flex-end;
+	justify-content: flex-start;
+}
+
+#settings {
+	fill: #1c1c1c;
+	opacity: 0.8;
+	width: 20px;
+	margin-left: 20px;
+	margin-bottom: 20px; 
+	transition: all .25s ease-in-out;
+}
+
+#settings:hover {
+	fill: white;
+}
+
+#bottom-center-div {
+	flex: 5;
+	margin-bottom: 10px;
+	transition: all .35s ease;
+}
+
+#bottom-right-div {
+	flex: 2;
+}
+
+#bottom-center-div p {
+	margin: 0;
+}
+
+#quote {
+	text-align: center;
+	font-size: 100%;
+	line-height: 120%;
+	letter-spacing: 0;
+	color: #fff;
+	opacity: 0.9;
+	text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.8);
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+#quote:before {
+	content: "\201C";
+}
+
+#quote:after {
+	content: "\201D";
+}
+
+#quote-metadata{
+	height: 0;
+	opacity: 0;	
+	transition: all .5s ease;
+
+	text-align: center;
+	font-size: 90%;
+	color: #fff;
+}
+
+#bottom-center-div:hover > #quote-metadata{
+	height: 20px;
+	opacity: 0.8;
+	display: block;
+	text-shadow: 1px 1px 5px rgba(0,0,0,.7);
+}
+
+@media screen and (max-height: 400px) {
+	#clock {
+		display: none;
+	}
+}
+
+@media screen and (max-height: 600px) {
+	#bottom-center-div  {
+		display: none;
+	}
+}

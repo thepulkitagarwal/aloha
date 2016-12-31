@@ -21,15 +21,21 @@ function setTimeAndPeriod() {
 	mins = mins < 10 ? '0' + mins : mins;
 	var time = hours % 12 + ':' + mins;
 	elements.clock.innerHTML = time;
-
-	if(hours >= 3 && hours < 12 && periodElementContent != 'morning') {
-		periodElementContent = elements.period.innerHTML = 'morning';
+	
+	if(hours >= 3 && hours < 12) {
+		if(periodElementContent != 'morning') {
+			periodElementContent = elements.period.innerHTML = 'morning';
+		}
 	}
-	else if(hours >= 12 && hours < 17 && periodElementContent != 'afternoon') {
-		periodElementContent = elements.period.innerHTML = 'afternoon';
+	else if(hours >= 12 && hours < 17) {
+		if(periodElementContent != 'afternoon') {
+			periodElementContent = elements.period.innerHTML = 'afternoon';
+		}
 	}
-	else if(periodElementContent != 'evening') {
-		periodElementContent = elements.period.innerHTML = 'evening';
+	else {
+		if(periodElementContent != 'evening') {
+			periodElementContent = elements.period.innerHTML = 'evening';
+		}
 	}
 	
 	setTimeout(setTimeAndPeriod, (60 - secs) * 1000);

@@ -5,7 +5,8 @@ var elements = {
 	author: document.getElementById('author'),
 	period: document.getElementById('period'),
 	name: document.getElementById('name'),
-	bgContainer: document.getElementById('bg-container')
+	bgContainer: document.getElementById('bg-container'),
+	inputImg: document.getElementById('input-img')
 }
 
 var periodElementContent = elements.period.innerHTML;
@@ -76,7 +77,53 @@ function setBackground(bgLocation) {
 	elements.bgContainer.style['background-image'] = 'url(' + bgLocation + ')';
 }
 
+function getBase64Image(img) {
+    var canvas = document.createElement("canvas");
+    canvas.width = img.width;
+    canvas.height = img.height;
+
+    var ctx = canvas.getContext("2d");
+    ctx.drawImage(img, 0, 0);
+
+    var dataURL = canvas.toDataURL("image/png");
+
+    // return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+    return dataURL;
+}
+
+function loadImage() {
+	var file, fr;
+
+	if (typeof window.FileReader !== 'function') {
+		console.log("The file API isn't supported on this browser yet.");
+		return;
+	}
+
+	else if (!elements.inputImg.files) {
+		console.log("This browser doesn't seem to support the `files` property of file inputs.");
+	}
+	else if (!elements.inputImg.files[0]) {
+		console.log("Please select a file before clicking 'Load'");
+	}
+	else {
+		file = elements.inputImg.files[0];
+		fr = new FileReader();
+		fr.onload = function() {
+			setBackground(fr.result);
+			var img = document.createElement('img');
+			img.src = fr.result;
+			localStorage.setItem("imgData", getBase64Image(img));
+		};
+		fr.readAsDataURL(file);
+	}
+}
+
 setTimeAndPeriod();
 setQuote();
 
+if(localStorage.imgData) {
+	setBackground(localStorage.imgData);
+}
+
+elements.inputImg.addEventListener('change', loadImage, false);
 }());

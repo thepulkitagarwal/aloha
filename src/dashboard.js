@@ -19,7 +19,7 @@ function setTimeAndPeriod() {
 	var mins = now.getMinutes();
 	var secs = now.getSeconds();
 	mins = mins < 10 ? '0' + mins : mins;
-	var time = hours % 12 + ':' + mins;
+	var time = (hours <= 12 ? hours: hours % 12) + ':' + mins;
 	elements.clock.innerHTML = time;
 	
 	if(hours >= 3 && hours < 12) {

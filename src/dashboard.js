@@ -72,6 +72,14 @@ function setQuote() {
 	}
 }
 
+function storeName(name) {
+	localStorage.name = name.trim();
+}
+
+function setName(name) {
+	elements.name.innerHTML = ', ' + name;
+}
+
 function setBackground(bgLocation) {
 	elements.bgContainer.style['background-image'] = 'url(' + bgLocation + ')';
 }
@@ -112,6 +120,10 @@ function loadImage(file) {
 
 setTimeAndPeriod();
 setQuote();
+
+if(localStorage.name) {
+	setName(localStorage.name);
+}
 
 if(localStorage.imgData) {
 	setBackground(localStorage.imgData);

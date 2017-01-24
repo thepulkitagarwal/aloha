@@ -11,7 +11,6 @@ var elements = {
 var periodElementContent = elements.period.innerHTML;
 var defaultQuote = "The man who does not read good books has no advantage over the man who cannot read them.";
 var defaultAuthor = "Mark Twain";
-var defaultBgLocation = "../res/wallpaper.jpg";
 
 function setTimeAndPeriod() {
 	var now = new Date();
@@ -109,10 +108,10 @@ function loadImage(file) {
 		fr = new FileReader();
 		fr.onload = function() {
 			setBackground(fr.result);
-			var img = document.createElement('img');
-			img.src = fr.result;
-			// localStorage.setItem("imgData", getBase64Image(img));
-			localStorage.setItem("imgData", fr.result);
+			// var img = document.createElement('img');
+			// img.src = fr.result;
+			// localStorage.setItem("imgData", fr.result);
+			store.storeImage(fr.result);
 		};
 		fr.readAsDataURL(file);
 	}
@@ -125,9 +124,15 @@ if(localStorage.name) {
 	setName(localStorage.name);
 }
 
-if(localStorage.imgData) {
-	setBackground(localStorage.imgData);
-}
+// if(localStorage.imgData) {
+// 	setBackground(localStorage.imgData);
+// }
+
+store.getImage(function(img) {
+	if(img) {
+		setBackground(img.dataURI);
+	}
+});
 
 $(document).on('drag dragstart dragend dragover dragenter dragleave drop', function(e) {
 	e.preventDefault();

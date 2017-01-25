@@ -6,8 +6,6 @@ var elements = {
 	period: document.getElementById('period'),
 	name: document.getElementById('name'),
 	bgContainer: document.getElementById('bg-container'),
-	bgImgContainer: document.getElementById('bg-img-container'),
-	bgImg: document.getElementById('bg-img'),
 	settings: document.getElementById('settings'),
 	settingsPopup: document.getElementById('settings-popup'),
 	settingsName: document.getElementById('settings-name'),
@@ -90,7 +88,6 @@ function setName(name) {
 
 function setBackground(dataURI, origURI) {
 	if(dataURI) elements.bgContainer.style['background-image'] = 'url(' + dataURI + ')';
-	// if(dataURI) elements.bgImg.src = dataURI;
 	if(origURI) elements.imageToCrop.src = origURI;
 }
 
@@ -146,6 +143,14 @@ if(localStorage.name) {
 store.getImage(function(img) {
 	if(img) {
 		setBackground(img.dataURI, img.origURI);
+		var image = document.createElement('img');
+		image.src = img.origURI;
+		if(!image.src) {
+			elements.bgContainer.classList.remove('hide');
+		}
+		image.onload = image.onerror = function () {
+			elements.bgContainer.classList.remove('hide');
+		};
 	}
 });
 
@@ -176,7 +181,6 @@ $(document).on('drag dragstart dragend dragover dragenter dragleave drop', funct
 
 $('#settings-crop-button').click(function() {
 	elements.bgContainer.classList.toggle('hide');
-	elements.bgImgContainer.classList.toggle('hide');
 	$('.crop-container').toggleClass('hide');
 	elements.settingsPopup.classList.toggle('show');
 

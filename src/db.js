@@ -15,14 +15,14 @@ var store = (function() {
 			id: 0,
 			origURI:dataURI,
 			dataURI:dataURI
-		})
+		}).catch(function(error) {
+		   console.log('Error: ' + error);
+		});
 		// .then (function(){
 		// 	return db.images.get('last-img');
 		// }).then(function(img) {
 		// 	console.log('Successfully added' + img.dataURI);
-		// }).catch(function(error) {
-		//    console.log('Error: ' + error);
-		// });
+		// })
 	}
 
 	function updateImage(dataURI) {

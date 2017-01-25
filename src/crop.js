@@ -37,7 +37,6 @@ var initializeCropper = function () {
 				self.cropper('destroy', function() {console.log('done')});
 				cropContainer.find('*').off();
 				cropContainer.toggleClass('hide');
-				$('#bg-img-container').toggleClass('hide');
 				$('#bg-container').toggleClass('hide');
 			});
 			

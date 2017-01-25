@@ -7,6 +7,18 @@ html, body {
 	display: flex;
 	align-items: stretch;
 	background-color: black;
+	overflow-y: hidden;
+}
+
+#bg-img-container {
+	overflow: hidden;
+	width: 100%;
+	height: 100%;
+}
+
+#bg-img {
+	width: 100%;
+	height: 100%;
 }
 
 #bg-container {
@@ -138,7 +150,64 @@ html, body {
 }
 
 @media screen and (max-height: 600px) {
-	#bottom-center-div  {
+	#bottom-center-div {
 		display: none;
 	}
+}
+
+#settings-popup {
+	position: absolute;
+	bottom: 50px;
+	left: 10px;
+	display: inline;
+	color: #FFFFFF;
+	background: #000000;
+	height: 100px;
+	width: 350px;
+	line-height: 30px;
+	text-align: center;
+	visibility: hidden;
+	border-radius: 6px;
+}
+
+#settings-popup:after {
+	content: '';
+	position: absolute;
+	top: 100%;
+	left: 20px;
+	margin-left: -8px;
+	width: 0; height: 0;
+	border-top: 8px solid #000000;
+	border-right: 8px solid transparent;
+	border-left: 8px solid transparent;
+}
+
+#settings-popup.show {
+	visibility: visible;
+	opacity: 0.8;
+	z-index: 999;
+}
+
+#settings-popup-container {
+	padding: 10px;
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
+	display: flex;
+	align-items: flex-start;
+	flex-direction: column;
+}
+
+#settings-name-wrap {
+	margin-bottom: 15px;
+}
+
+#settings-name {
+	display: inline-block;
+	margin-left: 20px;
+}
+
+.hide {
+	visibility: hidden;
+	display: none;
 }

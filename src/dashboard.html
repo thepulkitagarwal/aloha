@@ -8,7 +8,29 @@
 	<link rel="stylesheet" href="dashboard.css">
 </head>
 <body>
-	<div id="bg-container">
+	<div class="crop-container hide">
+		<div>
+			<img id="image-to-crop" src="../abc.jpg" alt="Picture">
+		</div>
+		<div id="crop-toolbar">
+			<div id="crop-toolbar-left">
+				<input type="file" id="crop-image-input" class="crop-image-input">
+			</div>
+			<div id="crop-toolbar-center">
+				<button class="rotate-ccw crop-button">&#8634</button>
+				<button class="rotate-cw crop-button">&#8635</button>
+			</div>
+			<div id="crop-toolbar-right">
+				<button class="save-button crop-button">Save</button>
+			</div>
+		</div>
+	</div>
+
+	<div id="bg-img-container" class="">
+		<img id="bg-img">
+	</div>
+
+	<div id="bg-container" class="">
 		<div id="clock"></div>
 		<div id="message">
 			Good <span id="period">afternoon</span><span id="name"></span>.
@@ -24,11 +46,24 @@
 			<div id="bottom-right-div"></div>
 		</div>
 	</div>
-	<div id="popup">
+	<div id="settings-popup">
+		<div id="settings-popup-container">
+			<div id="settings-name-wrap">
+				<label for="name"> Your name: </label>
+				<input id="settings-name" type="text" name="name" placeholder="Enter your name here">
+			</div>
+			<div id="settings-crop-container">
+				<button id="settings-crop-button">Change Background</button>
+			</div>
+		</div>
 	</div>
-	<script src="jquery-3.1.1.min.js"></script>
-	<script src="dexie.js"></script>
+	<script src="vendor/jquery-3.1.1.min.js"></script>
+	<script src="vendor/dexie.js"></script>
 	<script src="db.js"></script>
 	<script src="dashboard.js"></script>
+	<script src="vendor/cropper.min.js"></script>
+	<link rel="stylesheet" href="vendor/cropper.min.css">
+	<link rel="stylesheet" type="text/css" href="crop.css">
+	<script src="crop.js"></script>
 </body>
 </html>

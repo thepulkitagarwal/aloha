@@ -5,7 +5,15 @@ var elements = {
 	author: document.getElementById('author'),
 	period: document.getElementById('period'),
 	name: document.getElementById('name'),
-	bgContainer: document.getElementById('bg-container')
+	bgContainer: document.getElementById('bg-container'),
+	bgImgContainer: document.getElementById('bg-img-container'),
+	bgImg: document.getElementById('bg-img'),
+	settings: document.getElementById('settings'),
+	settingsPopup: document.getElementById('settings-popup'),
+	settingsName: document.getElementById('settings-name'),
+	settingsCropContainer: document.getElementById('settings-crop-container'),
+	settingsCropButton: document.getElementById('settings-crop-button'),
+	imageToCrop: document.getElementById('image-to-crop')
 }
 
 var periodElementContent = elements.period.innerHTML;
@@ -76,12 +84,17 @@ function storeName(name) {
 }
 
 function setName(name) {
-	elements.name.innerHTML = ', ' + name;
+	if(name) elements.name.innerHTML = ', ' + name;
+	else elements.name.innerHTML = '';
 }
 
 function setBackground(bgLocation) {
 	elements.bgContainer.style['background-image'] = 'url(' + bgLocation + ')';
+	// elements.bgImg.src = bgLocation;
+	elements.imageToCrop.src = bgLocation;
 }
+
+window.setBackground = setBackground;
 
 function getBase64Image(img) {
     var canvas = document.createElement("canvas");
@@ -91,7 +104,7 @@ function getBase64Image(img) {
     var ctx = canvas.getContext("2d");
     ctx.drawImage(img, 0, 0);
 
-    var dataURL = canvas.toDataURL("image/png");
+    var dataURL = canvas.toDataURL("image/jpg");
 
     // return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
     return dataURL;
@@ -107,11 +120,11 @@ function loadImage(file) {
 	else {
 		fr = new FileReader();
 		fr.onload = function() {
-			setBackground(fr.result);
 			// var img = document.createElement('img');
 			// img.src = fr.result;
 			// localStorage.setItem("imgData", fr.result);
 			store.storeImage(fr.result);
+			setBackground(fr.result);
 		};
 		fr.readAsDataURL(file);
 	}
@@ -120,8 +133,10 @@ function loadImage(file) {
 setTimeAndPeriod();
 setQuote();
 
+setName(localStorage.name);
+
 if(localStorage.name) {
-	setName(localStorage.name);
+	elements.settingsName.value = localStorage.name;
 }
 
 // if(localStorage.imgData) {
@@ -134,15 +149,40 @@ store.getImage(function(img) {
 	}
 });
 
+$(elements.settingsName).on('input', function(e) {
+	var name = e.target.value;
+	setName(name);
+	localStorage.name = name;
+});
+
+$(elements.settings).click(function(e) {
+	e.preventDefault();
+	elements.settingsPopup.classList.toggle('show');
+});
+
+
 $(document).on('drag dragstart dragend dragover dragenter dragleave drop', function(e) {
 	e.preventDefault();
 	e.stopPropagation();
 })
 .on('drop', function(e) {
-	var file = e.originalEvent.dataTransfer.files[0];
-	if(file && file.type.match(/^image\/(jpe?g|png)$/i)){
-		loadImage(e.originalEvent.dataTransfer.files[0]);
+	if(!$(elements.bgContainer).hasClass('hide')) {
+		var file = e.originalEvent.dataTransfer.files[0];
+		if(file && file.type.match(/^image\/(jpe?g|png)$/i)){
+			loadImage(e.originalEvent.dataTransfer.files[0]);
+		}
 	}
 });
 
+$('#settings-crop-button').click(function() {
+	elements.bgContainer.classList.toggle('hide');
+	elements.bgImgContainer.classList.toggle('hide');
+	$('.crop-container').toggleClass('hide');
+	elements.settingsPopup.classList.toggle('show');
+
+	initializeCropper();
+});
+
 }());
+
+

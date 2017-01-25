@@ -22,7 +22,7 @@
     ]
   },
   "browser_action": {
-    "default_title": "Momentum"
+    "default_title": "Aloha!"
   },
   "chrome_url_overrides": {
     "newtab": "src/dashboard.html"

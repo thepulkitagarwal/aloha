@@ -1,5 +1,5 @@
 var initializeCropper = function () {
-	$image = $('#image-to-crop')
+	var $image = $('#image-to-crop')
 	$image.cropper({
 		viewMode: 0,
 		dragMode: 'move',
@@ -23,10 +23,16 @@ var initializeCropper = function () {
 			$('.rotate-cw').click(function(e) {self.cropper('rotate', 90);});
 			$('.rotate-ccw').click(function(e) {self.cropper('rotate', -90);});
 			$('.save-button').click(function() {
-				var img = self.cropper('getCroppedCanvas', {fillColor: '#000'}).toDataURL('image/jpg');
+				var img = self.cropper('getCroppedCanvas', {
+					width: window.innerWidth*1.45,
+					height: window.innerHeight*1.45,
+					fillColor: '#000'
+				}).toDataURL('image/jpeg', 1);
 				// var win = window.open(img, '_blank');
 				// win.focus();
 				setBackground(img);
+				store.updateImage(img);
+
 				var cropContainer = $('.crop-container');
 				self.cropper('destroy', function() {console.log('done')});
 				cropContainer.find('*').off();
@@ -44,6 +50,7 @@ var initializeCropper = function () {
 						URL.revokeObjectURL(blobURL);
 					}).cropper('reset').cropper('replace', blobURL);
 					inputImage.val('');
+					store.storeImage(blobURL);
 				}
 			}
 

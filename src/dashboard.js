@@ -88,10 +88,10 @@ function setName(name) {
 	else elements.name.innerHTML = '';
 }
 
-function setBackground(bgLocation) {
-	elements.bgContainer.style['background-image'] = 'url(' + bgLocation + ')';
-	// elements.bgImg.src = bgLocation;
-	elements.imageToCrop.src = bgLocation;
+function setBackground(dataURI, origURI) {
+	if(dataURI) elements.bgContainer.style['background-image'] = 'url(' + dataURI + ')';
+	// if(dataURI) elements.bgImg.src = dataURI;
+	if(origURI) elements.imageToCrop.src = origURI;
 }
 
 window.setBackground = setBackground;
@@ -124,7 +124,7 @@ function loadImage(file) {
 			// img.src = fr.result;
 			// localStorage.setItem("imgData", fr.result);
 			store.storeImage(fr.result);
-			setBackground(fr.result);
+			setBackground(fr.result, fr.result);
 		};
 		fr.readAsDataURL(file);
 	}
@@ -145,7 +145,7 @@ if(localStorage.name) {
 
 store.getImage(function(img) {
 	if(img) {
-		setBackground(img.dataURI);
+		setBackground(img.dataURI, img.origURI);
 	}
 });
 

@@ -2,13 +2,14 @@
   "manifest_version": 2,
   "name": "Aloha!",
   "short_name": "Aloha",
-  "version": "0.0.0",
+  "version": "0.1.0",
 
   "description": "This helps you set a custom background in your new tab page",
   "icons": {
     "48": "res/icon48.png",
     "72": "res/icon72.png",
     "96": "res/icon96.png",
+    "128": "res/icon128.png",
     "144": "res/icon144.png",
     "192": "res/icon192.png",
     "512": "res/icon512.png"

@@ -166,7 +166,15 @@ $(elements.settingsName).on('input', function(e) {
 
 $(elements.settings).click(function(e) {
 	e.preventDefault();
-	elements.settingsPopup.classList.toggle('show');
+	elements.settingsPopup.classList.add('show');
+
+	setTimeout(function() {
+		$(document).bind('click.hidePopupHandler', function(event) {
+			e.preventDefault();
+			elements.settingsPopup.classList.remove('show');
+			$(document).unbind('click.hidePopupHandler');
+		});
+	}, 100);
 });
 
 

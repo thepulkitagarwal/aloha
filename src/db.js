@@ -19,7 +19,7 @@ var store = (function() {
 		   console.log('Error: ' + error);
 		});
 		// .then (function(){
-		// 	return db.images.get('last-img');
+		// 	return db.images.get(0);
 		// }).then(function(img) {
 		// 	console.log('Successfully added' + img.dataURI);
 		// })
@@ -37,7 +37,17 @@ var store = (function() {
 			.equals(0)
 			.toArray()
 			.then(function(images) {
-				callback(images[images.length-1]);
+				if(images && images.length) {
+					callback(images[images.length-1]);
+				}
+				else {
+					var defaultImage = '../res/default.jpg';
+					callback({
+						dataURI: defaultImage,
+						origURI: defaultImage
+					});
+					storeImage(defaultImage);
+				}
 			});
 	}
 

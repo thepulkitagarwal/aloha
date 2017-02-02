@@ -145,12 +145,16 @@ store.getImage(function(img) {
 		setBackground(img.dataURI, img.origURI);
 		var image = document.createElement('img');
 		image.src = img.origURI;
-		if(!image.src) {
+		var loading = function() {
 			elements.bgContainer.classList.remove('hide');
-		}
-		image.onload = image.onerror = function () {
-			elements.bgContainer.classList.remove('hide');
+			setTimeout(function(){
+				$('#loading').remove();
+			}, 1000);
 		};
+		image.onload = image.onerror = loading;
+		if(!image.src) {
+			loading();
+		}
 	}
 });
 

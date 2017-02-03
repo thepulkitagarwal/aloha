@@ -177,6 +177,9 @@ $(elements.settings).click(function(e) {
 	}, 100);
 });
 
+$(elements.settingsPopup).click(function(e) {
+	e.stopPropagation();
+});
 
 $(document).on('drag dragstart dragend dragover dragenter dragleave drop', function(e) {
 	e.preventDefault();
